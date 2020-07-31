@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tes</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  </head>
+  <body>
+    <center>
+      <h1>  </h1>
+    </center>
+    
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">confidence</th>
+            <th scope="col">data time</th>
+            <th scope="col">vehicle type</th>
+            <th scope="col">weight</th>
+          </tr>
+        </thead>
+        <tbody id="lcostumer">
+        </tbody>
+    </table>
+      
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBstymlF1BEZHAHqWW5Ddmg2SRZHbSVRyg",
+    authDomain: "vehicle-1d2dd.firebaseapp.com",
+    databaseURL: "https://vehicle-1d2dd.firebaseio.com",
+    projectId: "vehicle-1d2dd",
+    storageBucket: "vehicle-1d2dd.appspot.com",
+    messagingSenderId: "405095981638",
+    appId: "1:405095981638:web:5ef498bd027b8e9fe8a047",
+    measurementId: "G-83YVKSD9NZ"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+    //deklarasi variabel
+    var db , CostumerRef;
+
+    // referensi ke database
+    db = firebase.database();
+    CostumerRef = db.ref('Costumer');
+
+    CostumerRef.on('value' , dataBerhasil , dataGagal);
+
+    function dataBerhasil(data) {
+      console.log(data);
+    }
+    function dataGagal(err) {
+      console.log(err);
+    }
+
+    /*================MENAMPILKAN DATA=================*/
+
+    CostumerRef.on('value' , dataBerhasil , dataGagal);
+    var isi_tabel = document.getElementById('lcostumer');
+
+    function dataBerhasil(data) {
+
+    var tampilan_tabel = '';
+    var nomor = 1;
+      data.forEach(function(konten) {
+        tampilan_tabel += '<tr>'+
+                              '<td>'+nomor+'</td>'+
+                              '<td>'+konten.val().confidence+'</td>'+
+                              '<td>'+konten.val().date_time+'</td>'+
+                              '<td>'+konten.val().vehicle_type+'</td>'+
+                              '<td>'+konten.val().weight+'</td>'+
+                          '</tr>';
+        nomor++;
+      });
+      isi_tabel.innerHTML = tampilan_tabel;
+    }
+    function dataGagal(err) {
+      console.log(err);
+    }
+  </script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
